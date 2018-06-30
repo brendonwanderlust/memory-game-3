@@ -43,6 +43,10 @@ class App extends Component { //this extends the react component class. The comp
 
 
   render() {
+    let cardsJSX = this.state.deck.map((card,index) => {
+      return <MemoryCard key={index} symbol={card.Symbol} isFlipped={card.isFlipped}/>
+    });
+
     return (
       <div className="App">
         <header className="App-header">
@@ -51,28 +55,16 @@ class App extends Component { //this extends the react component class. The comp
         </header>
 
         <div>
-          <MemoryCard />
-          <MemoryCard />
-          <MemoryCard />
-          <MemoryCard />
+          {cardsJSX.slice(0,4)}
         </div>
         <div>
-          <MemoryCard />
-          <MemoryCard />
-          <MemoryCard />
-          <MemoryCard />
+          {cardsJSX.slice(4,8)}
         </div>
         <div>
-          <MemoryCard />
-          <MemoryCard />
-          <MemoryCard />
-          <MemoryCard />
+          {cardsJSX.slice(8,12)}
         </div>
         <div>
-          <MemoryCard />
-          <MemoryCard />
-          <MemoryCard />
-          <MemoryCard />
+          {cardsJSX.slice(12,16)}
         </div>
         
       </div>

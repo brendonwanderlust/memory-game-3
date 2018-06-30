@@ -3,8 +3,8 @@ import './MemoryCard.css'
 
 class Card extends Component {
 
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {isFlipped: false};
 
 	}
@@ -16,7 +16,7 @@ class Card extends Component {
 
 	render() {
 		var cardClass = "MemoryCardInner";
-		if (this.state.isFlipped) {
+		if (this.props.isFlipped) {
 		    cardClass += " flipped";
 		}
 		return (
@@ -25,7 +25,7 @@ class Card extends Component {
 		            <div className="MemoryCardBack">
 		                <img src="https://www.digitalcrafts.com/img/DigitalCrafts-Logo-Wrench.png" />
 		            </div>
-		            <div className="MemoryCardFront">∆</div>
+		            <div className="MemoryCardFront">{this.props.symbol}</div>
 		        </div>
 		    </div>
 		);
