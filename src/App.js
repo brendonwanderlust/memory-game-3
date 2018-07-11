@@ -1,19 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-
 import MemoryCard from './MemoryCard.js' 
-
-function generateDeck() {
-  let symbols = ["∆", "ß", "£", "§", "•", "$", "+", "ø"];
-  let deck = [];
-  for (var i=0; i<16; i++) {
-    deck.push(
-      {isFlipped:false, Symbol: symbols[i%8]}
-    )
-  };
-  shuffle(deck);
-  return deck
-}
 
 /*
   Shuffles array in place.
@@ -30,6 +17,19 @@ function shuffle(a) {
   return a;
 }
 
+function generateDeck() {
+  let symbols = ["∆", "ß", "£", "§", "•", "$", "+", "ø"];
+  let deck = [];
+  for (var i=0; i<16; i++) {
+    deck.push({
+      isFlipped:false, 
+      symbol: symbols[i%8]
+    });
+  }
+  shuffle(deck);
+  return deck
+}
+
 class App extends Component { //this extends the react component class. The component class is React specific. 
 
   constructor() {
@@ -41,10 +41,53 @@ class App extends Component { //this extends the react component class. The comp
   }
 
 
+pickCard(cardIndex) {
+  let newDeck = this.state.deck.map(card => {
+    return {...card}
+  });
+
+  newDeck[cardIndex].isFlipped = true;
+
+  let newPickedCards = this.state.pickedCards.concat(cardIndex);
+
+  if (newPickedCards.length == 2) {
+    var card1Index = newPickedCards[0];
+    var card2Index = newPickedCards[1];
+    var card1 = newDeck[card1Index];
+    var card2 = newDeck[card2Index];
+  
+    if (card1.symbol !== card2.symbol) {
+      // card1.isFlipped = false;
+      // card2.isFlipped = false;
+      setTimeout(()=>{
+        this.unflipCards(card1Index, card2Index);
+      }, 1000)
+    }
+    newPickedCards = [];
+  }
+
+  this.setState({
+    deck: newDeck,
+    pickedCards: newPickedCards
+  });
+}
+
+  unflipCards() {
+    let newDeck = this.state.deck.map(card=> {
+      return {...card}
+    });
+
+    newDeck[card1Index]
+    newDeck[card2Index]
+  }
+
 
   render() {
     let cardsJSX = this.state.deck.map((card,index) => {
-      return <MemoryCard key={index} symbol={card.Symbol} isFlipped={card.isFlipped}/>
+      return <MemoryCard key={index} 
+                        symbol={card.Symbol} 
+                        isFlipped={card.isFlipped}
+                        pickCard={this.pickCard.bind(this, index)}/>
     });
 
     return (
