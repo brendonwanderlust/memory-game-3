@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './MemoryCard.css'
 
-class Card extends Component {
-
+class MemoryCard extends Component {
 
 	render() {
 		var cardClass = "MemoryCardInner";
@@ -22,4 +21,4 @@ class Card extends Component {
 	}
 }
 
-export default Card;
+export default MemoryCard;
